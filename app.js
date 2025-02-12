@@ -7,28 +7,33 @@ let valorO=0;
 let operacionActual='';
 
 function valor(){
-    let entrada=parseInt(document.querySelector('#entrada').value);
-    
+    let entrada=parseInt(document.querySelector('#entrada').value);    
     return entrada;    
 }
 
 
 
 function suma(){
-    operacion+=valor();
-    console.log(operacion);  
-    operacionActual='suma'; 
-    limpiarCaja();
+    valorEntrada();
+    if(valor()!=null){
+        limpiarCaja();
+        operacionActual='suma';
+    }else{
+        operacion+=valor();
+        console.log(operacion);  
+        operacionActual='suma'; 
+        limpiarCaja();
+    }
+    
 
 
 }
 
 
 function resta(){ 
-    resultado();  
+    valorEntrada();  
     if(valor()!=null){
-        limpiarCaja();
-        let nuevoNumero=valor();
+        limpiarCaja();        
         operacionActual='resta';
     }else{
         operacion-= valor();
@@ -38,34 +43,46 @@ function resta(){
     }
    
 }
-function multiplicar(){    
-    operacion= operacion*valor();
-    console.log(operacion);
-    operacionActual='multiplicar';
-    limpiarCaja();
+function multiplicar(){  
+    valorEntrada();
+    if(valor()!=null){
+        limpiarCaja();
+        operacionActual='multiplicar';
+    } else{
+        operacion= operacion*valor();
+        console.log(operacion);
+        operacionActual='multiplicar';
+        limpiarCaja();
+    } 
+    
 }
 function dividir(){
+    valorEntrada();
+    if(valor()!=null){
+        limpiarCaja();
+        operacionActual='dividir';
+    }else{
+        operacion= operacion/valor();
+        operacionActual='dividir';
+        console.log(operacion);
+        limpiarCaja();
+    }
     
-    operacion= operacion/valor();
-    operacionActual='dividir';
-    console.log(operacion);
-    limpiarCaja();
 }
 function limpiarCaja(){
     document.querySelector('#entrada').value='';
 }
-function resultado(){
+function valorEntrada(){
     console.log("resultado");
     let ultimoValor=valor();
     switch (operacionActual){
         case 'suma':
             operacion+=ultimoValor; 
-            document.querySelector('#entrada').value='';           
+            document.querySelector('#entrada').value='';                  
             break;
         case 'resta':
             operacion-=ultimoValor;
-            document.querySelector('#entrada').value='';
-            
+            document.querySelector('#entrada').value='';            
             break;
         case 'multiplicar':
             operacion=operacion*ultimoValor;
@@ -78,11 +95,9 @@ function resultado(){
         default:
             operacion=ultimoValor;
     }    
-    document.querySelector('#entrada').value=operacion;
-           
-    console.log(operacion)
+    
 }
-/*function resultado(){
+function resultado(){
     console.log("resultado");
     let ultimoValor=valor();
     switch (operacionActual){
@@ -104,7 +119,7 @@ function resultado(){
         default:
             operacion=ultimoValor;
     }    
-    // document.querySelector('#entrada').value=operacion;
-    // operacion=0;
+    document.querySelector('#entrada').value=operacion;
+    operacion=0;
     console.log(operacion)
-}*/
+}
